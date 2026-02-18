@@ -10,6 +10,7 @@ We'll improve on this in later sections.
 """
 import pandas as pd
 import pickle
+from pathlib import Path
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import (
@@ -82,6 +83,9 @@ def main():
         reverse=True
     ):
         print(f"  {name}: {importance:.4f}")
+    
+    # Create models directory if it doesn't exist
+    Path("models").mkdir(parents=True, exist_ok=True)
     
     print("\nSaving model to models/model.pkl...")
     with open("models/model.pkl", "wb") as f:

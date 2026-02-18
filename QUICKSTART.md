@@ -31,6 +31,9 @@ pip install -r requirements.txt
 ## Step 2: Generate Data and Train Model (2 minutes)
 
 ```bash
+# Create directories for generated artifacts (scripts will also create these)
+mkdir -p data models
+
 # Generate synthetic fraud detection data
 python src/generate_data.py
 

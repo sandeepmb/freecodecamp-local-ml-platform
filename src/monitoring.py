@@ -12,6 +12,7 @@ and alert when significant drift is detected.
 """
 import pandas as pd
 import numpy as np
+from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 
@@ -106,6 +107,10 @@ class DriftMonitor:
         try:
             report = Report(metrics=[DataDriftPreset()])
             report.run(reference_data=ref_subset, current_data=cur_subset)
+            
+            # Create parent directory if it doesn't exist
+            output_file = Path(output_path)
+            output_file.parent.mkdir(parents=True, exist_ok=True)
             
             # Save HTML report
             with open(output_path, 'w') as f:

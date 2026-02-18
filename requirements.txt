@@ -18,7 +18,7 @@ httpx>=0.26.0
 great-expectations>=0.18.8
 
 # Monitoring
-evidently>=0.4.14
+evidently>=0.7.20
 
 # Testing
 pytest>=8.0.0

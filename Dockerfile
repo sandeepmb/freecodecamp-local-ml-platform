@@ -9,9 +9,16 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy source code
 COPY src/ src/
-COPY models/ models/
-COPY data/ data/
+COPY feature_repo/ feature_repo/
+
+# Create directories for generated artifacts
+RUN mkdir -p data models
+
+# Generate training data and train model during build
+RUN python src/generate_data.py && \
+    python src/train_naive.py
 
 EXPOSE 8000
 

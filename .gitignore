@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+ml-env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# MLflow
+mlruns/
+mlflow.db
+mlflow.db-shm
+mlflow.db-wal
+
+# Feast
+data/registry.db
+data/online_store.db
+data/registry.db-shm
+data/registry.db-wal
+
+# Models and data
+models/*.pkl
+encoder.pkl
+*.parquet
+data/*.csv
+
+# Reports
+*.html
+drift_report.html
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

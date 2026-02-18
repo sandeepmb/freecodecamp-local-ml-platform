@@ -1,0 +1,51 @@
+name: ML Pipeline CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Generate training data
+        run: python src/generate_data.py
+      
+      - name: Train model
+        run: python src/train_naive.py
+      
+      - name: Run data quality tests
+        run: pytest tests/test_data_and_model.py -v --tb=short
+      
+      - name: Build Docker image
+        run: docker build -t fraud-detection-api .
+      
+      - name: Run container for API tests
+        run: |
+          docker run -d -p 8000:8000 --name test-api fraud-detection-api
+          sleep 10
+          curl -f http://localhost:8000/health || exit 1
+      
+      - name: Run API tests
+        run: pytest tests/test_api.py -v --tb=short
+      
+      - name: Cleanup
+        if: always()
+        run: docker stop test-api || true
